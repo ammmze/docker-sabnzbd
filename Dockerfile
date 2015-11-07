@@ -1,6 +1,8 @@
 FROM phusion/baseimage:0.9.16
 MAINTAINER needo <needo@superhero.org>
 ENV DEBIAN_FRONTEND noninteractive
+ENV USER_ID         99
+ENV GROUP_ID        100
 
 # Set correct environment variables
 ENV HOME /root
@@ -9,8 +11,8 @@ ENV HOME /root
 CMD ["/sbin/my_init"]
 
 # Fix a Debianism of the nobody's uid being 65534
-RUN usermod -u 99 nobody
-RUN usermod -g 100 nobody
+RUN usermod -u $USER_ID nobody
+RUN usermod -g $GROUP_ID nobody
 
 RUN add-apt-repository ppa:jcfp/ppa
 RUN add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty universe multiverse"
